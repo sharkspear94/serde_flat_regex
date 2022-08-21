@@ -5,7 +5,7 @@
 //!
 //! ```
 //! # use std::collections::HashMap;
-//! use serde_regex::flat_regex;
+//! use serde_flat_regex::flat_regex;
 //! use serde::Deserialize;
 //!
 //! #[flat_regex]
@@ -37,7 +37,7 @@
 //! # use std::collections::BTreeMap;
 //! # use std::str::Utf8Error;
 //! use std::ffi::CString;
-//! use serde_regex::flat_regex;
+//! use serde_flat_regex::flat_regex;
 //! use serde::Deserialize;
 //!
 //! #[flat_regex]
