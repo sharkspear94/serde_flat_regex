@@ -32,4 +32,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Clippy
-      run: cargo clippy -- -W clippy::pedantic
+      run: cargo clippy -- -D clippy::pedantic

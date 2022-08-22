@@ -23,7 +23,7 @@ fn compile() {
 }
 
 #[test]
-fn compile_cstr() {
+fn cstr() {
     #[flat_regex]
     #[derive(Debug, Deserialize, PartialEq, Clone)]
     struct Foo<'a> {
@@ -82,7 +82,7 @@ fn json() {
 }
 
 #[test]
-fn json_vec() {
+fn json_should_fail() {
     #[flat_regex]
     #[derive(Debug, Deserialize, PartialEq, Clone)]
     struct Foo {
@@ -94,21 +94,21 @@ fn json_vec() {
     let raw = r#"
     {
         "id": 123,
-        "lanportspeed_0": "100",
+        "lanportspeed_0": 100,
         "lanportstatus_0": "UP",
-        "lanportspeed_1": "",
+        "lanportspeed_1": 0,
         "lanportstatus_10": "DOWN",
         "othterfield": "ASD",
         "lanport": "ADDDD"
     }"#;
 
-    let res: Foo = serde_json::from_str(raw).expect("from str failed");
+    let res: Result<Foo, _> = serde_json::from_str(raw);
 
-    assert_eq!(res.rest.len(), 4)
+    assert!(res.is_err())
 }
 
 #[test]
-fn json_veasdc() {
+fn json_borrow_two_lt() {
     #[flat_regex]
     #[derive(Debug, Deserialize, PartialEq, Clone)]
     struct Foo<'a, 'b> {
@@ -137,6 +137,7 @@ fn json_veasdc() {
 
 #[test]
 fn json_test() {
+    #[allow(dead_code)]
     #[flat_regex]
     #[derive(Debug, Deserialize)]
     struct RouterStatus {
@@ -162,6 +163,7 @@ fn json_test() {
 
 #[test]
 fn bson_test() {
+    #[allow(dead_code)]
     #[flat_regex]
     #[derive(Debug, Deserialize)]
     struct RouterStatus {

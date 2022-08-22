@@ -5,6 +5,8 @@ edition = "2021"
 readme = "README.md"
 keywords = ["serde", "regex", "flattening","map","deserialize"]
 license = "MIT"
+repository = "https://github.com/sharkspear94/serde_flat_regex"
+categories = ["encoding", "development-tools::cargo-plugins"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -16,7 +18,6 @@ darling = "0.14.1"
 proc-macro-error = "1.0.4"
 proc-macro2 = "1.0.43"
 quote = "1.0.21"
-static_assertions = "1.1.0"
 syn = { version = "1.0.99", features = ["full"] }
 
 
