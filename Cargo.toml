@@ -1,12 +1,15 @@
 [package]
 name = "serde_flat_regex"
+authors = ["Felix K."]
 version = "0.1.0"
 edition = "2021"
 readme = "README.md"
-keywords = ["serde", "regex", "flattening","map","deserialize"]
+keywords = ["serde", "regex", "flattening","utilities","deserialization"]
 license = "MIT"
+description = "a marcro for flattening regex matching keys during serde deserialization"
 repository = "https://github.com/sharkspear94/serde_flat_regex"
-categories = ["encoding", "development-tools::cargo-plugins"]
+categories = ["encoding"]
+documentation = "https://docs.rs/serde_flat_regex/"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
