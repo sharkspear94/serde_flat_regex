@@ -5,7 +5,7 @@ A small macro for flattening a map type with regex machting keys.
 ## Example
 
 ```rust
-#[regex]
+#[flat_regex]
 #[derive(Debug, Deserialize)]
 struct RouterStatus {
     id: u32,
