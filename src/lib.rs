@@ -98,7 +98,7 @@ pub fn flat_regex(_args: TokenStream, input: TokenStream) -> TokenStream {
         let mut with_fn = Vec::new();
         let fields = fields
             .iter()
-            .map(|f| replace_attr(f, name.to_string(), &mut with_fn));
+            .map(|f| replace_attr(f, &name.to_string(), &mut with_fn));
         quote!(
                 #(#att)*
                 #vis struct #name #gen {
@@ -123,7 +123,7 @@ pub fn flat_regex(_args: TokenStream, input: TokenStream) -> TokenStream {
                 let fields = a
                     .named
                     .iter()
-                    .map(|f| replace_attr(f, format!("{}_{}", name, var_name), &mut with_fn_vec));
+                    .map(|f| replace_attr(f, &format!("{}_{}", name, var_name), &mut with_fn_vec));
                 quote!(
                         #(#att)*
                         #var_name {
@@ -198,7 +198,7 @@ struct FlatRegex {
 
 fn replace_attr(
     field: &Field,
-    prefix: String,
+    prefix: &str,
     with_fn_vec: &mut Vec<proc_macro2::TokenStream>,
 ) -> proc_macro2::TokenStream {
     let flat_field = match FlatRegex::from_field(field) {
