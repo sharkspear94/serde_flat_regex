@@ -82,7 +82,25 @@ use syn::{
 };
 
 /// Macro for flattening map types with regex maching keys.
-/// The macro must be placed before deriving Deserialize
+///
+/// **Important**: The macro must be placed **before** deriving Deserialize
+///
+///
+/// ```
+/// # use std::collections::BTreeMap;
+/// # use std::str::Utf8Error;
+/// use std::ffi::CString;
+/// use serde_flat_regex::flat_regex;
+/// use serde::Deserialize;
+///
+/// #[flat_regex]
+/// #[derive(Debug,Deserialize)]   
+/// struct RouterStatus {
+///     online: bool,
+///     #[flat_regex(regex = r"lanportstatus_\d+")]
+///     lanport_status: BTreeMap<String,bool>,
+/// }
+/// ```
 #[proc_macro_error]
 #[proc_macro_attribute]
 pub fn flat_regex(_args: TokenStream, input: TokenStream) -> TokenStream {
