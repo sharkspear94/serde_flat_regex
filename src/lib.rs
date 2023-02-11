@@ -141,7 +141,7 @@ pub fn flat_regex(_args: TokenStream, input: TokenStream) -> TokenStream {
                 let fields = a
                     .named
                     .iter()
-                    .map(|f| replace_attr(f, &format!("{}_{}", name, var_name), &mut with_fn_vec));
+                    .map(|f| replace_attr(f, &format!("{name}_{var_name}"), &mut with_fn_vec));
                 quote!(
                         #(#att)*
                         #var_name {
@@ -240,11 +240,8 @@ fn replace_attr(
     };
 
     let s = if let Some(reg) = &flat_field.regex {
-        let fun_name = format!("__with_regex_{}_{}", prefix, ident);
-        let r = Ident::new(
-            &format!("__with_regex_{}_{}", prefix, ident),
-            Span::call_site(),
-        );
+        let fun_name = format!("__with_regex_{prefix}_{ident}");
+        let r = Ident::new(&format!("__with_regex_{prefix}_{ident}"), Span::call_site());
 
         // get inner generic values
         let (key, value) = inner(ty);
