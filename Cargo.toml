@@ -1,7 +1,7 @@
 [package]
 name = "serde_flat_regex"
 authors = ["Felix K."]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 readme = "README.md"
 keywords = ["serde", "regex", "flattening","utilities","deserialization"]
@@ -17,15 +17,15 @@ documentation = "https://docs.rs/serde_flat_regex/"
 proc-macro = true
 
 [dependencies]
-darling = "0.14.1"
-proc-macro-error = "1.0.4"
-proc-macro2 = "1.0.43"
-quote = "1.0.21"
-syn = { version = "1.0.99", features = ["full"] }
+darling = "0.14"
+proc-macro-error = "1.0"
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = { version = "1.0", features = ["full"] }
 
 
 [dev-dependencies]
-serde = { version = "1.0.143", features = ["derive"] }
-serde_json = "1.0.83"
-bson = "2.4.0"
-regex = "1.6.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bson = "2.4"
+regex = "1.6"
