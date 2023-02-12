@@ -103,7 +103,7 @@ fn json_should_fail() {
     }"#;
 
     let res: Result<Foo, _> = serde_json::from_str(raw);
-
+    
     assert!(res.is_err())
 }
 
@@ -222,4 +222,10 @@ fn enum_test() {
             ])
         }
     )
+}
+
+#[test]
+fn should_fail_at_compliltime() {
+    let t = trybuild::TestCases::new();
+    t.compile_fail("tests/fail/regex_fail.rs")
 }

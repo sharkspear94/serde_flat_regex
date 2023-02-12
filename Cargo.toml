@@ -21,6 +21,7 @@ darling = "0.14"
 proc-macro-error = "1.0"
 proc-macro2 = "1.0"
 quote = "1.0"
+regex = "1.6"
 syn = { version = "1.0", features = ["full"] }
 
 
@@ -29,3 +30,4 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 bson = "2.4"
 regex = "1.6"
+trybuild = "1.0.77"

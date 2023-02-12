@@ -210,7 +210,7 @@ struct FlatRegex {
     ident: Option<syn::Ident>,
     vis: syn::Visibility,
     ty: syn::Type,
-    regex: Option<String>,
+    regex: String,
     key_access: Option<String>,
 }
 
@@ -221,7 +221,7 @@ fn replace_attr(
 ) -> proc_macro2::TokenStream {
     let flat_field = match FlatRegex::from_field(field) {
         Ok(o) => o,
-        Err(e) => return e.write_errors(),
+        Err(_) => return quote!(#field),
     };
     let ident = &flat_field.ident.unwrap();
     let vis = &flat_field.vis;
@@ -238,8 +238,19 @@ fn replace_attr(
     } else {
         quote!(let key_str = key.as_ref();)
     };
+    let reg = &flat_field.regex;
+    let s = {
+        match regex::Regex::new(reg) {
+            Ok(_) => (),
+            Err(e) => {
+                for f in &field.attrs {
+                    if f.path.segments.last().unwrap().ident == "flat_regex" {
+                        abort!(f.tokens, e.to_string())
+                    }
+                }
+            }
+        }
 
-    let s = if let Some(reg) = &flat_field.regex {
         let fun_name = format!("__with_regex_{prefix}_{ident}");
         let r = Ident::new(&format!("__with_regex_{prefix}_{ident}"), Span::call_site());
 
@@ -301,8 +312,6 @@ fn replace_attr(
         }
         ));
         quote!(#[serde(flatten, deserialize_with = #fun_name)])
-    } else {
-        quote!()
     };
     quote!(
         #s
