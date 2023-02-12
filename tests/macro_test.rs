@@ -1,4 +1,4 @@
-use std::ffi::{CStr, CString};
+use std::ffi::CString;
 use std::{collections::HashMap, marker::PhantomData, str::Utf8Error};
 
 use bson::bson;
@@ -22,20 +22,27 @@ fn compile() {
     }
 }
 
+pub mod asd {
+
+    use std::ffi::CStr;
+    use std::str::Utf8Error;
+
+    pub fn as_str(s: &CStr) -> Result<&str, Utf8Error> {
+        s.to_str()
+    }
+}
+
 #[test]
 fn cstr() {
     #[flat_regex]
     #[derive(Debug, Deserialize, PartialEq, Clone)]
     struct Foo<'a> {
         id: u32,
-        #[flat_regex(regex = r"lanport(status|speed)_\d+", key_access = "as_str")]
+        #[flat_regex(regex = r"lanport(status|speed)_\d+", key_access = "asd::as_str")]
         #[serde(borrow)]
         rest: std::collections::HashMap<CString, &'a str>,
     }
 
-    fn as_str(s: &CStr) -> Result<&str, Utf8Error> {
-        s.to_str()
-    }
     let raw = r#"
     {
         "id": 123,
@@ -103,7 +110,7 @@ fn json_should_fail() {
     }"#;
 
     let res: Result<Foo, _> = serde_json::from_str(raw);
-    
+
     assert!(res.is_err())
 }
 

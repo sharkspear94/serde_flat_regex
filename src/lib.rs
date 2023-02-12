@@ -211,7 +211,7 @@ struct FlatRegex {
     vis: syn::Visibility,
     ty: syn::Type,
     regex: String,
-    key_access: Option<String>,
+    key_access: Option<syn::ExprPath>,
 }
 
 fn replace_attr(
@@ -233,11 +233,11 @@ fn replace_attr(
         .map(|a| quote!(#a));
 
     let key_access = if let Some(fun) = &flat_field.key_access {
-        let fun = Ident::new(fun, Span::call_site());
         quote!(let key_str = #fun(&key).map_err(A::Error::custom)?;)
     } else {
         quote!(let key_str = key.as_ref();)
     };
+
     let reg = &flat_field.regex;
     let s = {
         match regex::Regex::new(reg) {
