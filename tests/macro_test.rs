@@ -3,7 +3,7 @@ use std::{collections::HashMap, marker::PhantomData, str::Utf8Error};
 
 use bson::bson;
 use serde::Deserialize;
-use serde_flat_regex::{self, flat_regex};
+use serde_flat_regex::flat_regex;
 
 #[test]
 fn compile() {
@@ -234,5 +234,6 @@ fn enum_test() {
 #[test]
 fn should_fail_at_compliltime() {
     let t = trybuild::TestCases::new();
-    t.compile_fail("tests/fail/regex_fail.rs")
+    t.compile_fail("tests/fail/regex_fail.rs");
+    t.compile_fail("tests/fail/key_access_fail.rs");
 }

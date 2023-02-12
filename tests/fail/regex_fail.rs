@@ -1,5 +1,5 @@
 use serde::Deserialize;
-use serde_flat_regex::{self, flat_regex};
+use serde_flat_regex::flat_regex;
 
 #[flat_regex]
 #[derive(Debug, Deserialize, PartialEq, Clone)]
