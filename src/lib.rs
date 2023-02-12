@@ -219,9 +219,8 @@ fn replace_attr(
     prefix: &str,
     with_fn_vec: &mut Vec<proc_macro2::TokenStream>,
 ) -> proc_macro2::TokenStream {
-    let flat_field = match FlatRegex::from_field(field) {
-        Ok(o) => o,
-        Err(_) => return quote!(#field),
+    let Ok(flat_field) = FlatRegex::from_field(field) else {
+        return quote!(#field);
     };
     let ident = &flat_field.ident.unwrap();
     let vis = &flat_field.vis;
