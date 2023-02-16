@@ -2,7 +2,7 @@ error: regex parse error:
            [a-Z]
             ^^^
        error: invalid character class range, the start must be <= the end
- --> tests/fail/regex_fail.rs:8:17
+ --> tests/fail/regex_fail.rs:8:26
   |
 8 |     #[flat_regex(regex = r"[a-Z]")]
-  |                 ^^^^^^^^^^^^^^^^^^
+  |                          ^^^^^^^^
