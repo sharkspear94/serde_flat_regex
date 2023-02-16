@@ -294,18 +294,18 @@ fn replace_attr(
                     write!(formatter, "a {}",stringify!(#ty))
                 }
 
-                fn visit_map<A>(mut self, mut map: A) -> Result<Self::Value, A::Error>
+                fn visit_map<A>(mut self, mut map: A) -> std::result::Result<Self::Value, A::Error>
                     where A: serde::de::MapAccess<'de>,
                 {
                     let re = regex::Regex::new(#reg).unwrap();
-                    while let Some(key) = map.next_key::<#key>()? {
+                    while let std::option::Option::Some(key) = map.next_key::<#key>()? {
                         #key_access
                         if re.is_match(key_str) {
                             let val = map.next_value::<#value>()?;
                             self.0.extend(std::iter::once((key, val)));
                         }
                     }
-                    Ok(self.0)
+                    std::result::Result::Ok(self.0)
                 }
             }
         deserializer.deserialize_map(RegexVisitor((#(#collection::)*<#key,#value>::default())))
