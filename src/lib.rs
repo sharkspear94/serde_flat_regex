@@ -210,7 +210,7 @@ struct FlatRegex {
     ident: Option<syn::Ident>,
     vis: syn::Visibility,
     ty: syn::Type,
-    regex: String,
+    regex: syn::LitStr,
     key_access: Option<syn::ExprPath>,
 }
 
@@ -238,16 +238,12 @@ fn replace_attr(
         quote!(let key_str = key.as_ref();)
     };
 
-    let reg = &flat_field.regex;
+    let reg = &flat_field.regex.value();
     let s = {
         match regex::Regex::new(reg) {
             Ok(_) => (),
             Err(e) => {
-                for f in &field.attrs {
-                    if f.path.segments.last().unwrap().ident == "flat_regex" {
-                        abort!(f.tokens, e.to_string())
-                    }
-                }
+                abort!(flat_field.regex, e.to_string());
             }
         }
 
